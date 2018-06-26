@@ -1,11 +1,13 @@
 Package: rships
 Type: Package
-Title: What the Package Does (Title Case)
+Title: SHIPS Statistical Team
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Authors@R: c(
+  person("Maxime", "Turgeon", email = "maxime.turgeon@saskhealthauthority.ca",
+  role = c("aut", "cre"), comment = "http://maxturgeon.ca/")
+  )
+Description: This package contains functions that we frequently use 
+    at SHIPS.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
