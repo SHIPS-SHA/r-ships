@@ -6,8 +6,15 @@ Authors@R: c(
   person("Maxime", "Turgeon", email = "maxime.turgeon@saskhealthauthority.ca",
   role = c("aut", "cre"), comment = "http://maxturgeon.ca/")
   )
-Description: This package contains functions that we frequently use 
-    at SHIPS.
+Description: Contains functions that we frequently use at SHIPS.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+RoxygenNote: 6.0.1
+Imports:
+    dplyr,
+    lubridate,
+    purrr,
+    tis,
+    magrittr,
+    tibble
