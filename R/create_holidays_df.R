@@ -11,44 +11,42 @@
 #' @importFrom magrittr %>%
 #' @importFrom tibble tibble
 #' @examples
-#' \dontrun{
 #' create_df_holidays(lubridate::ymd("20180101"), lubridate::ymd("20181231"))
-#' }
 create_df_holidays <- function(begin, end) {
-  year_begin <- year(begin)
-  year_end <- year(end)
+  year_begin <- lubridate::year(begin)
+  year_end <- lubridate::year(end)
   # 1. Easter
   easter_df <- purrr::map_df(seq(year_begin,
                                  year_end),
                              function(yr) {
-                                   date_easter <- tis::easter(yr) %>%
-                                     as.character() %>%
-                                     ymd
+                               date_easter <- tis::easter(yr) %>%
+                                 as.character() %>%
+                                 lubridate::ymd()
 
-                                   tibble(ds = date_easter + days(c(-2, 0, 1)),
-                                          holiday = c("good friday",
-                                                      "easter",
-                                                      "easter monday"))
-                                 })
+                               tibble(ds = date_easter + lubridate::days(c(-2, 0, 1)),
+                                      holiday = c("good friday",
+                                                  "easter",
+                                                  "easter monday"))
+                             })
 
   # 2. Christmas and NY
   christ_df <- purrr::map_df(seq(year_begin,
                                  year_end),
                              function(yr) {
-                               christmas <- ymd(paste0(yr, "1225"))
-                               tibble(ds = c(ymd(paste0(yr, "0101")),
-                                               christmas + days(c(-1, 0, 1, 6))),
+                               christmas <- lubridate::ymd(paste0(yr, "1225"))
+                               tibble(ds = c(lubridate::ymd(paste0(yr, "0101")),
+                                             christmas + lubridate::days(c(-1, 0, 1, 6))),
                                       holiday = c("new year", "christmas eve",
                                                   "christmas", "boxing day",
                                                   "new year's eve"))
-                               })
+                             })
 
   # 3. Fixed dates
   fixed_df <- purrr::map_df(seq(year_begin,
                                 year_end),
                             function(yr) {
-                              tibble(ds = c(ymd(paste0(yr, "0701")),
-                                              ymd(paste0(yr, "1111"))),
+                              tibble(ds = c(lubridate::ymd(paste0(yr, "0701")),
+                                            lubridate::ymd(paste0(yr, "1111"))),
                                      holiday = c("canada day",
                                                  "remembrance day"))
                             })
@@ -57,27 +55,27 @@ create_df_holidays <- function(begin, end) {
   monday_df <- purrr::map_df(seq(year_begin,
                                  year_end),
                              function(yr) {
-                               tibble(ds = c(floor_date(ymd(paste0(yr, "0221")),
-                                                          unit = "week",
-                                                          week_start = 1),
-                                               floor_date(ymd(paste0(yr, "0524")),
-                                                          unit = "week",
-                                                          week_start = 1),
-                                               floor_date(ymd(paste0(yr, "0807")),
-                                                          unit = "week",
-                                                          week_start = 1),
-                                               floor_date(ymd(paste0(yr, "0907")),
-                                                          unit = "week",
-                                                          week_start = 1),
-                                               floor_date(ymd(paste0(yr, "1014")),
-                                                          unit = "week",
-                                                          week_start = 1)),
+                               tibble(ds = c(lubridate::floor_date(lubridate::ymd(paste0(yr, "0221")),
+                                                        unit = "week",
+                                                        week_start = 1),
+                                             lubridate::floor_date(lubridate::ymd(paste0(yr, "0524")),
+                                                        unit = "week",
+                                                        week_start = 1),
+                                             lubridate::floor_date(lubridate::ymd(paste0(yr, "0807")),
+                                                        unit = "week",
+                                                        week_start = 1),
+                                             lubridate::floor_date(lubridate::ymd(paste0(yr, "0907")),
+                                                        unit = "week",
+                                                        week_start = 1),
+                                             lubridate::floor_date(lubridate::ymd(paste0(yr, "1014")),
+                                                        unit = "week",
+                                                        week_start = 1)),
                                       holiday = c("family day",
                                                   "victoria day",
                                                   "civic holiday",
                                                   "labour day",
                                                   "thanksgiving"))
-                               })
+                             })
 
   dplyr::bind_rows(
     easter_df,

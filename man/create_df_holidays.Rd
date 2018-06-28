@@ -20,7 +20,5 @@ This is is used with the prophet package to do forecasting of time series.
 Adding holiday information may improve the accuracy of the forecast.
 }
 \examples{
-\dontrun{
 create_df_holidays(lubridate::ymd("20180101"), lubridate::ymd("20181231"))
-}
 }
