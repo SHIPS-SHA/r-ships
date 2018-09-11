@@ -10,8 +10,8 @@ add_service_line(data)
 \item{data}{data.frame and tibble containing hospital records}
 }
 \value{
-The same dataset as input, but with two new variables:
-  \code{ProviderService} and \code{ServiceLine}.
+The same dataset as input, but with one new variable
+  (\code{ServiceLine}) and one updated variable (\code{ProviderService}).
 }
 \description{
 Based on a function developed by SHIPS after discussions with health records,

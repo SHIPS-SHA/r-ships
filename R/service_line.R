@@ -9,8 +9,8 @@
 #' \code{ProviderService}, and \code{ProviderNumber}.
 #'
 #' @param data data.frame and tibble containing hospital records
-#' @return The same dataset as input, but with two new variables:
-#'   \code{ProviderService} and \code{ServiceLine}.
+#' @return The same dataset as input, but with one new variable
+#'   (\code{ServiceLine}) and one updated variable (\code{ProviderService}).
 #' @export
 add_service_line <- function(data) {
   # Need to check whether some variable names are available
@@ -28,9 +28,9 @@ add_service_line <- function(data) {
       ProviderServiceDesc == 'Family Practice/General Practice' & PatientServiceSubService != '54' ~ "Family Practitioner (Non-Maternal)",
       ProviderServiceDesc == 'Neonatal-Perinatal Medicine' ~ "Neonatologist",
       ProviderServiceDesc == 'Midwifery' ~ "Newborn - Midwifery",
-      stringr::str_detect("Dent", ProviderServiceDesc) ~ "Dental Surgery/Dentistry/Pediatric Dentistry",
-      (stringr::str_detect("Paediatric", ProviderServiceDesc) &
-         !stringr::str_detect("Dent", ProviderServiceDesc)) |
+      stringr::str_detect(ProviderServiceDesc, "Dent") ~ "Dental Surgery/Dentistry/Pediatric Dentistry",
+      (stringr::str_detect(ProviderServiceDesc, "Paediatric") &
+         !stringr::str_detect(ProviderServiceDesc, "Dent")) |
         (PatientServiceSubServiceDesc == 'Paediatrics' & PatientServiceSubService == '54') ~ "Pediatrician",
       ProviderServiceDesc %in% c('Physiatry', 'Physical Medicine & Rehabilitation') ~ "Physiatrist/Physical Med & Rehab",
       PatientServiceSubService == '76' & ProviderService == '00001' ~ "Physiatry",
