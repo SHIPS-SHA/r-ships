@@ -17,4 +17,5 @@ Imports:
     purrr,
     tis,
     magrittr,
+    stringr,
     tibble
