@@ -1,0 +1,13 @@
+language: r
+r:
+  - release
+  - devel
+sudo: false
+cache: packages
+
+r_packages:
+  - devtools
+
+notifications:
+  email:
+    - maxime.turgeon@saskhealthauthority.ca
